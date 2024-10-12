@@ -1,0 +1,27 @@
+#!/bin/sh
+# Name this script "myfilter" and place it in the ".filters/" directory
+
+# If any command fails, exit immediately with that command's exit status
+set -eo pipefail
+
+key='\$Id(.*?)\$'
+value1=$(date +%s)
+value2=$(date +"%Y-%m-%dT%H:%M:%S%z");
+
+for f in "$@"; do 
+	case "${f,,}" in
+		tags/*) continue ;;
+		/tags/*) continue ;;
+		*.cs) ;;
+		*.java) ;;
+		*.sql) ;;
+		*.xml) ;;
+		*.hsc) ;;
+		*.scr) ;;
+		*) continue ;;
+	esac
+	values="\$Id: $value1 $f $value2 \$"
+	sed -i -E "s|$key|$values|1" "$f"
+	git add -u -- "$f"
+done
+
