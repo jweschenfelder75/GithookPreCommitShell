@@ -20,9 +20,8 @@ for f in "$@"; do
 		*.scr) ;;
 		*) continue ;;
 	esac
-	values='\$'+"Id: $value1 $v1 $value2"+'\$'
-	cp "$f" "$TMPFILE" || continue
-	sed i -E "s|$key2|$values|1" "$TMPFILE" > "$f"
-	git add -u -- "$f"
+	values='\$'+"Id: $value1 $f $value2"+'\$'
+	sed -i -E "s|$key|$values|1" "$f"
+	# git add -u -- "$f"
 done
 
