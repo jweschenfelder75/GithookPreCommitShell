@@ -1,4 +1,4 @@
 # GithookPreCommitShell
 
-git config --local core.hooksPath .git/hooks
+git config --local|--global core.hooksPath .git/hooks
 
