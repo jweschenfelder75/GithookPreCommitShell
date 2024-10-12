@@ -4,7 +4,7 @@
 # If any command fails, exit immediately with that command's exit status
 set -eo pipefail
 
-key='\$'+'Id(.*?)'+'\$'
+key='\$Id(.*?)\$'
 value1=$(date +%s)
 value2=$(date +"%Y-%m-%dT%H:%M:%S%z");
 
@@ -20,8 +20,8 @@ for f in "$@"; do
 		*.scr) ;;
 		*) continue ;;
 	esac
-	values='\$'+"Id: $value1 $f $value2"+'\$'
+	values="\$Id: $value1 $f $value2 \$"
 	sed -i -E "s|$key|$values|1" "$f"
-	# git add -u -- "$f"
+	git add -u -- "$f"
 done
 
