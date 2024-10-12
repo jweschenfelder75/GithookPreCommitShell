@@ -1,0 +1,8 @@
+#!/bin/sh
+# Name this script "pre-commit" and place it in the ".git/hooks" directory
+
+# If any command fails, exit immediately with that command's exit status
+set -eo pipefail
+
+git diff --cached --name-only -z --diff-filter=ACM | xargs -r0 .filters/myfilter
+
